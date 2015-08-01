@@ -1,0 +1,74 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+  
+    <script src="js/polyfills/webcomponents.min.js"></script>
+    <script src="js/polyfills/browser-polyfill.min.js"></script>
+    <script src="js/polyfills/ie.js"></script>
+    
+    <script src="js/three.js"></script>
+    <script src="js/SkyShader.js"></script>
+    <script src="js/renderers/Projector.js"></script>
+    <script src="js/renderers/CanvasRenderer.js"></script>
+    <script src="js/controls/SightControls.js"></script>
+    <script src="js/controls/DeviceOrientationControls.js"></script>
+    <script src="js/planetarium.js"></script>
+    <script src="js/data/star_names.js"></script>
+    <script src="js/data/stars_mag_8.js"></script>
+    <script src="js/data/constellations.js"></script>
+    <script src="js/data/planets.js"></script>
+    <script src="js/planetarium-element.js"></script>
+    
+    <style>
+        #planetarium {
+            display: block;
+            width: 90vw;
+            height: 90vh;
+            background-color: green;
+        }
+        #planetarium:fullscreen {
+            width: 100vw;
+            height: 100vh;
+        }
+        #planetarium:-webkit-full-screen {
+            width: 100vw;
+            height: 100vh;
+        }
+        #planetarium:-moz-full-screen {
+            width: 100vw;
+            height: 100vh;
+        }
+        #planetarium:-ms-fullscreen {
+            width: 100vw;
+            height: 100vh;
+        }        
+    </style>    
+</head>
+
+<body>
+    <x-planetarium id="planetarium"></x-planetarium>
+    <div id="date"></div>
+    <input type="button" value="Full Screen" onclick="fullScreen()">
+    <input id="time_speed" type="number" value="1" step="100">
+    
+    <script>
+        var planetarium = document.getElementById('planetarium');
+        var date = document.getElementById('date');
+        var time_speed = document.getElementById('time_speed');
+
+        planetarium.addEventListener('onrender', function(e) {
+            date.textContent = e.detail.planetarium.date;
+        });
+        time_speed.addEventListener('input', function() {
+            planetarium.setTimeSpeed(+time_speed.value);
+        });
+
+        function fullScreen() {
+            planetarium.fullScreen();
+        }
+
+    </script>
+</body>
+</html>
